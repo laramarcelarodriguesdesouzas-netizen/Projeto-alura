@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Bobbie Goods | Flashcards</title>
+
+    <style>
+
+        /* =========================
+           VARIÁVEIS
+        ========================= */
+
+        :root {
+            --marrom: #6f513c;
+            --marrom-escuro: #4b372b;
+            --creme: #fffaf2;
+            --amarelo: #f4c95d;
+            --amarelo-claro: #ffe89a;
+        }
+
+
+        /* =========================
+           RESET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        /* =========================
+           BODY
+        ========================= */
+
+        body {
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            color: var(--marrom-escuro);
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 248, 238, 0.68),
+                    rgba(255, 248, 238, 0.68)
+                ),
+                url("https://i.pinimg.com/736x/e6/9f/b8/e69fb80da79b023a6de7753eef36566c.jpg");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            position: relative;
+        }
+
+
+        /* =========================
+           DETALHE AMARELO DO FUNDO
+        ========================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            width: 180px;
+            height: 180px;
+
+            background: var(--amarelo);
+
+            border-radius: 50%;
+
+            opacity: 0.18;
+
+            top: 8%;
+            left: -70px;
+
+            z-index: -1;
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            text-align: center;
+
+            padding: 35px 20px 20px;
+        }
+
+        header h1 {
+            color: var(--marrom);
+
+            font-size: 44px;
+
+            text-shadow:
+                3px 3px 0 var(--amarelo);
+        }
+
+        header p {
+            margin-top: 5px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: var(--marrom-escuro);
+        }
+
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        main {
+            width: 90%;
+            max-width: 900px;
+
+            margin: auto;
+        }
+
+
+        /* =========================
+           INTRO
+        ========================= */
+
+        .intro {
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            font-size: 30px;
+
+            color: var(--marrom-escuro);
+
+            margin-bottom: 8px;
+        }
+
+        .intro p {
+            font-size: 17px;
+        }
+
+
+        /* =========================
+           FLASHCARD
+        ========================= */
+
+        .flashcard-container {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .flashcard {
+            width: 100%;
+            max-width: 600px;
+
+            min-height: 320px;
+
+            padding: 40px;
+
+            background: var(--creme);
+
+            border: 4px solid var(--amarelo);
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 8px 0 var(--marrom),
+                0 15px 30px rgba(0, 0, 0, 0.18);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .flashcard:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 12px 0 var(--marrom),
+                0 20px 35px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* =========================
+           FRENTE DO CARD
+        ========================= */
+
+        .card-front {
+            text-align: center;
+        }
+
+        .card-front h2 {
+            font-size: 28px;
+
+            color: var(--marrom-escuro);
+        }
+
+
+        /* =========================
+           VERSO DO CARD
+        ========================= */
+
+        .card-back {
+            display: none;
+
+            text-align: center;
+        }
+
+        .card-back p {
+            font-size: 23px;
+
+            font-weight: bold;
+
+            color: var(--marrom);
+        }
+
+
+        /* =========================
+           BOTÕES
+        ========================= */
+
+        button {
+            border: 2px solid var(--marrom);
+
+            padding: 12px 25px;
+
+            border-radius: 20px;
+
+            background: var(--amarelo);
+
+            color: var(--marrom-escuro);
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--amarelo-claro);
+
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+
+        /* =========================
+           CONTROLES
+        ========================= */
+
+        .controls {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 15px;
+
+            margin-top: 30px;
+        }
+
+
+        /* =========================
+           PROGRESSO
+        ========================= */
+
+        .progress {
+            width: fit-content;
+
+            margin: 25px auto;
+
+            padding: 12px 25px;
+
+            text-align: center;
+
+            background: var(--creme);
+
+            border: 2px solid var(--amarelo);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 5px 0 var(--marrom);
+        }
+
+        .progress p {
+            margin: 4px;
+        }
+
+        #score {
+            font-weight: bold;
+
+            color: var(--marrom);
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+
+            padding: 30px;
+
+            color: var(--marrom);
+        }
+
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 34px;
+            }
+
+            .intro h2 {
+                font-size: 25px;
+            }
+
+            .flashcard {
+                min-height: 260px;
+
+                padding: 25px;
+            }
+
+            .card-front h2 {
+                font-size: 22px;
+            }
+
+            .controls {
+                flex-direction: column;
+
+                align-items: center;
+            }
+
+            .controls button {
+                width: 180px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         CABEÇALHO
+    ========================== -->
+
+    <header>
+
+        <h1>Bobbie Goods</h1>
+
+        <p>✨ Flashcards ✨</p>
+
+    </header>
+
+
+    <!-- =========================
+         CONTEÚDO PRINCIPAL
+    ========================== -->
+
+    <main>
+
+
+        <!-- INTRODUÇÃO -->
+
+        <section class="intro">
+
+            <h2>Vamos começar?</h2>
+
+            <p>
+                Teste seus conhecimentos e divirta-se!
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+             FLASHCARD
+        ========================== -->
+
+        <section class="flashcard-container">
+
+            <div
+                class="flashcard"
+                id="flashcard"
+            >
+
+                <!-- FRENTE -->
+
+                <div class="card-front">
+
+                    <h2 id="question">
+                        Pergunta
+                    </h2>
+
+                </div>
+
+
+                <!-- VERSO -->
+
+                <div class="card-back">
+
+                    <p id="answer">
+                        Resposta
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button id="flip-btn">
+                Virar card
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             CONTROLES
+        ========================== -->
+
+        <section class="controls">
+
+            <button id="prev-btn">
+                ← Anterior
+            </button>
+
+            <button id="next-btn">
+                Próximo →
+            </button>
+
+        </section>
+
+
+        <!-- =========================
+             PROGRESSO
+        ========================== -->
+
+        <section class="progress">
+
+            <p id="progress-text">
+                Card 1 de 3
+            </p>
+
+            <p id="score">
+                Acertos: 0
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================== -->
+
+    <footer>
+
+        <p>
+            Feito com ☕ e criatividade
+        </p>
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================== -->
+
+    <script>
+
+        /* =========================
+           ELEMENTOS
+        ========================= */
+
+        const flashcard =
+            document.getElementById("flashcard");
+
+        const question =
+            document.getElementById("question");
+
+        const answer =
+            document.getElementById("answer");
+
+        const flipBtn =
+            document.getElementById("flip-btn");
+
+        const prevBtn =
+            document.getElementById("prev-btn");
+
+        const nextBtn =
+            document.getElementById("next-btn");
+
+        const progressText =
+            document.getElementById("progress-text");
+
+        const scoreText =
+            document.getElementById("score");
+
+
+        /* =========================
+           DADOS DOS FLASHCARDS
+        ========================== */
+
+        const cards = [
+
+            {
+                question: "Pergunta 1",
+                answer: "Resposta 1"
+            },
+
+            {
+                question: "Pergunta 2",
+                answer: "Resposta 2"
+            },
+
+            {
+                question: "Pergunta 3",
+                answer: "Resposta 3"
+            }
+
+        ];
+
+
+        /* =========================
+           VARIÁVEIS
+        ========================== */
+
+        let currentCard = 0;
+
+        let score = 0;
+
+
+        /* =========================
+           MOSTRAR CARD
+        ========================== */
+
+        function showCard() {
+
+            question.textContent =
+                cards[currentCard].question;
+
+            answer.textContent =
+                cards[currentCard].answer;
+
+            progressText.textContent =
+                `Card ${currentCard + 1} de ${cards.length}`;
+
+            resetCard();
+
+        }
+
+
+        /* =========================
+           RESETAR CARD
+        ========================== */
+
+        function resetCard() {
+
+            document.querySelector(".card-front")
+                .style.display = "block";
+
+            document.querySelector(".card-back")
+                .style.display = "none";
+
+        }
+
+
+        /* =========================
+           VIRAR CARD
+        ========================== */
+
+        function flipCard() {
+
+            const front =
+                document.querySelector(".card-front");
+
+            const back =
+                document.querySelector(".card-back");
+
+
+            if (back.style.display === "none") {
+
+                front.style.display = "none";
+
+                back.style.display = "block";
+
+            } else {
+
+                front.style.display = "block";
+
+                back.style.display = "none";
+
+            }
+
+        }
+
+
+        /* =========================
+           PRÓXIMO CARD
+        ========================== */
+
+        function nextCard() {
+
+            if (currentCard < cards.length - 1) {
+
+                currentCard++;
+
+                showCard();
+
+            }
+
+        }
+
+
+        /* =========================
+           CARD ANTERIOR
+        ========================== */
+
+        function previousCard() {
+
+            if (currentCard > 0) {
+
+                currentCard--;
+
+                showCard();
+
+            }
+
+        }
+
+
+        /* =========================
+           EVENTOS
+        ========================== */
+
+        flipBtn.addEventListener(
+            "click",
+            flipCard
+        );
+
+        nextBtn.addEventListener(
+            "click",
+            nextCard
+        );
+
+        prevBtn.addEventListener(
+            "click",
+            previousCard
+        );
+
+
+        /* =========================
+           INICIALIZAÇÃO
+        ========================== */
+
+        showCard();
+
+    </script>
+
+</body>
+
+</html>
